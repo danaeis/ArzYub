@@ -1,0 +1,95 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+}
+
+#container p a {
+  color: #7a5b97;
+}
+
+#container p a:hover {
+  color: #986fbe;
+}
+
+:is(#signup-form, #signin-form) {
+  display: flex;
+  flex-direction: column;
+}
+
+:is(#signup-form, #signin-form) label {
+  margin-top: 1em;
+  font-weight: 600;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+:is(#signup-form, #signin-form) input {
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  border: 1px #986fbe solid;
+}
+
+.signup-btn,
+.signin-btn {
+  margin-top: 2em;
+  padding: 0.8em 2em;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(
+    to bottom right,
+    rgba(107, 103, 110, 0.7),
+    rgba(107, 103, 110, 0.4)
+  );
+  font-weight: 600;
+  cursor: pointer;
+}
+
+:is(.signup-btn, .signin-btn):hover {
+  background: linear-gradient(
+    to bottom right,
+    rgba(120, 110, 128, 0.7),
+    rgba(120, 110, 128, 0.4)
+  );
+}
+
+.invalid-feedback {
+  color: #7a5b97;
+}
+
+/* ---------------------------------------------- Media Queries ---------------------------------------------- */
+
+@media screen and (min-width: 700px) {
+  body,
+  button,
+  input,
+  textarea,
+  select {
+    font-size: 0.9rem;
+  }
+
+  #container {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  body,
+  button,
+  input,
+  textarea,
+  select {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  #container {
+    height: 90vh;
+    width: 30%;
+  }
+}

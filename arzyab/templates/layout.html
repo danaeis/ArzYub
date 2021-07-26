@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="{{url_for('static', filename='All_pages.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='trade.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='user.css')}}" />
+    
+    <script src="{{ url_for('static', filename='js/tasks.js')}}"></script>
+
+    <title>Arz Yub</title>
+  </head>
+
+  <body>
+    <main>
+      <section id="container">
+        <section id="menu" class="menu">
+          <button id="closeMenuBtn" class="close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+          <div class="user">
+            <a href="{{url_for('account')}}">
+              <img
+              src={{image_file}}
+              alt="Profile"
+              class="profile-img"
+            />
+            </a>
+            <div class="user-info">
+              <p>Welcome</p>
+              <a href="{{url_for('account')}}"><h3>{{current_user.username}}</h3></a>
+              <a href="{{url_for('logout')}}" class="logout">Logout</a>
+            </div>
+          </div>
+          <div class="projects">
+            <div class="projects-header">
+              <h2 class="title">Currencies</h2>
+              
+            </div>
+            
+            <nav id="projectsNav" class="projects-nav">
+              
+                <a href="{{url_for('market_type', market='btc')}}" class='{{"proj selected" if market and market=="Bitcoin" else "proj"}}' >
+                    Bitcoin
+               </a>
+               <a href="{{url_for('market_type', market='eth')}}" class='{{"proj selected" if market and market=="Etherium" else "proj"}}' >
+                   Etherium
+              </a>
+
+            </nav>
+          </div>
+          <!-- <section class="date">
+            <a href="#" class="new-project-btn"><button class="new-project-btn"  >
+              <i class="fas fa-plus"></i>
+            </button></a>
+          </section> -->
+        </section>
+
+        <button id="openMenuBtn" class="open-menu-btn">
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+
+        <!-- Tasks -->
+        
+        <section id="trade" class="trade">
+        {% block content %}{% endblock %}
+        </section>
+    </section>
+    
+    <script>
+    document
+        .getElementById("openMenuBtn")
+        .addEventListener("click", openMenu);
+    
+      document
+        .getElementById("closeMenuBtn")
+        .addEventListener("click", closeMenu);
+        
+        </script>
+
+{% block  script %}{% endblock %}
+      </body>
+    </html>
+    

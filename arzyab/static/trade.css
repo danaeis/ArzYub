@@ -1,0 +1,455 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(rgb(20, 20, 20, 0.5), rgba(20, 20, 20, 0.7)),
+    url(Background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-size: 0.7rem;
+  font-family: "Poppins", sans-serif;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#container {
+  height: 95vh;
+  width: 90%;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  backdrop-filter: blur(1rem);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------- Menu ---------------------------------------------- */
+
+.open-menu-btn {
+  padding: 2em 0 0 2em;
+  border: none;
+  background: transparent;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.open-menu-btn:hover {
+  color: #a59180;
+}
+
+.menu {
+  /* position: fixed; */
+  z-index: 10;
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2em;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.302)
+  );
+  border-radius: 20px 0 0 20px;
+}
+
+.user {
+  width: 100%;
+  align-self: flex-start;
+  height: min-content;
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  border-radius: 50px;
+}
+
+.profile-img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.user-info {
+  margin: 0 1em;
+  line-height: 1.4;
+}
+
+.user-info p {
+  color: #6b6661;
+}
+
+.user-info h3 {
+  color: #0c0000;
+  font-weight: 600;
+}
+
+.user-info a {
+  text-decoration: none;
+}
+
+.user-info h3:hover {
+  color: #4e3f2f;
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 90%;
+  margin: 3em 0;
+  overflow-y: hidden;
+}
+
+.title {
+  width: 70%;
+  margin-bottom: 1em;
+  padding-bottom: 0.2em;
+  border-bottom: 2px black solid;
+  align-self: flex-start;
+  justify-self: flex-start;
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.projects-nav {
+  height: 100%;
+  padding-right: 1em;
+  overflow-y: auto;
+}
+
+.projects .proj {
+  display: inline-block;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  padding: 1em 0;
+  margin-bottom: 0.5em;
+  background: #a1938549;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.proj-delete-btn {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+.projects .proj:hover {
+  background: rgba(182, 174, 165, 0.63);
+}
+
+.projects .selected {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1em 0;
+  margin-bottom: 0.5em;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  background: #3a322971;
+  font-weight: 500;
+  clip-path: polygon(0% 0%, 90% 0, 100% 50%, 90% 100%, 0% 100%);
+}
+
+.projects .selected:hover {
+  background: #3a322971;
+}
+
+.date {
+  justify-self: flex-end;
+}
+
+.date a {
+  text-decoration: none;
+}
+
+.new-project-btn {
+  padding: 1em;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+.new-project-btn:is(:hover, :active) {
+  color: #a59180;
+}
+
+/* ---------------------------------------------- Trades ---------------------------------------------- */
+
+
+
+.container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+.trade {
+  display: flex;
+  flex-direction: column;
+  flex: 4;
+  margin: 1em auto;
+  padding: 3em 3em 3em 3em;
+  max-width: 90%;
+  overflow-y: hidden;
+}
+
+
+.responsive-table li {
+    
+    border-radius: 3px;
+    /* padding: 25px 30px; */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+
+.table-header h2 {
+  width: 30%;
+  padding-bottom: 0.2em;
+  border-bottom: 2px black solid;
+}
+
+.table-header .col {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 0;
+
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    
+    background: linear-gradient(
+      to bottom right,
+      rgba(100, 88, 116, 0.2),
+      rgba(109, 109, 109, 0.5)
+    );
+}
+.result {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+  /* width: 30%; */
+  padding-bottom: 0.2em;
+  /* border-bottom: 2px black solid; */
+  
+  padding: 2rem;
+  /* padding: 2rem 6rem !important; */
+  
+} 
+.middle{
+  padding: 2rem 6rem !important;
+  width: 100%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(100, 88, 116, 0.2),
+    rgba(124, 155, 139, 0.5)
+  ) !important;
+}
+.action {
+  padding: 2rem 6rem !important;
+  width: 100%;
+  /* background-color: rgba(216, 58, 58, 0.479); */
+  background: linear-gradient(
+    to bottom right,
+    rgba(100, 88, 116, 0.2),
+    rgba(216, 58, 58, 0.479)
+    ) !important;
+}
+
+.sell{
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 1em;
+  margin-bottom: 0em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  background: linear-gradient(
+      to bottom right,
+      rgba(54, 86, 161, 0.2),
+      rgba(182, 181, 184, 0.5)
+    );
+}
+.buy{
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 0em;
+  margin-bottom: 0em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  background: linear-gradient(
+      to bottom right,
+      rgba(54, 86, 161, 0.2),
+      rgba(182, 181, 184, 0.5)
+    );
+}
+a:hover{
+  background: linear-gradient(
+      to bottom right,
+      rgba(54, 86, 161, 0.2),
+      rgba(139, 127, 165, 0.5)
+    );
+}
+/* .table-header .col {
+    width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1em 0;
+  margin-bottom: 0.5em;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+    color: white;
+    background: linear-gradient(
+      to bottom right,
+      rgba(54, 86, 161, 0.2),
+      rgba(42, 37, 48, 0.5)
+    );
+} */
+
+.table-row .sell{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 0;
+  margin-bottom: 0em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  background-color: rgba(41, 129, 187, 0.37);
+    /* background: linear-gradient(
+      to bottom right,
+      rgba(222, 225, 231, 0.1),
+      rgba(110, 18, 14, 0.4)
+    ); */
+  
+}
+.table-row .buy{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 0;
+  margin-bottom: 0em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  background-color: rgba(101, 121, 163, 0.678);
+      /* background: linear-gradient(
+        to bottom right,
+        rgba(222, 225, 231, 0.1),
+        rgba(20, 100, 26, 0.4)
+      ); */
+    
+}
+
+/* .trades-container {
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+} */
+/* .col-1 {
+    border-right: 1px solid rgba(75, 75, 75, 0.89);;
+} */
+
+/* .responsive-table .table-row {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+} */
+
+/* ****************************************************tooltip ***************************************************/
+.tooltip {
+  position: relative;
+  display: inline-block;
+  /* border-bottom: 1px dotted black; */
+}
+
+.tooltip .tooltiptext {
+  font-size: 11px;
+  visibility: hidden;
+  width: 120px;
+  /* background-color: black; */
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  margin-bottom: 1px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  
+  /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

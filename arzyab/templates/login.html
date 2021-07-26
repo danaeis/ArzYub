@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static', filename='All_pages.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='signup_signin.css')}}" />
+    <title>Login</title>
+  </head>
+
+  <body>
+    <main>
+      <section id="container">
+        <h1>Sign In</h1>
+        <p>Not a member yet? <a href="{{url_for('register')}}">Sign Up</a></p>
+        <form action="" method="POST" id="signin-form">
+            {{ form.hidden_tag() }}
+            
+            <legend class="border-bottom mb-4"></legend>
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-check">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label") }}
+            </div>
+
+          <button type="submit" class="signin-btn">Sign In</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
