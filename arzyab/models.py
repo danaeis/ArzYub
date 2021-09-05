@@ -19,14 +19,30 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
-class Currency(db.Model):
+class Nobitex(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    currtype = db.Column(db.String(20), unique=True, nullable=False)
-    nobitexPrice =  db.Column(db.Float)
-    nobitexAmount =  db.Column(db.Float)
-    wallexPrice =  db.Column(db.Float)
-    wallexAmount =  db.Column(db.Float)
+    # currtype = db.Column(db.String(20), nullable=False)
+    Pprice =  db.Column(db.Float, nullable=False)
+    Pamount =  db.Column(db.Float, nullable=False)
+    Sprice = db.Column(db.Float, nullable=False)
+    Samount = db.Column(db.Float, nullable=False)
+    curr = db.Column(db.String(20), nullable=False)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
-        return f"Currency('{self.nobitexPrice}', '{self.nobitexAmount}', '{self.wallexPrice}', '{self.wallexAmount}')"
+        return f"Nobitex('{self.curr}', '{self.Pprice}', '{self.Pamount}', '{self.Sprice}','{self.Samount}', '{self.date_created}')"
+
+class Wallex(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    # currtype = db.Column(db.String(20), nullable=False)
+    Pprice =  db.Column(db.Float, nullable=False)
+    Pamount =  db.Column(db.Float, nullable=False)
+    Sprice = db.Column(db.Float, nullable=False)
+    Samount = db.Column(db.Float, nullable=False)
+    curr = db.Column(db.String(20), nullable=False)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"Wallex('{self.curr}', '{self.Pprice}', '{self.Pamount}', '{self.Sprice}','{self.Samount}', '{self.date_created}')"
+
 

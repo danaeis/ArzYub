@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if not Data %}   
-<dev class="tradeTable">
+<dev class="tradeTable" id="tradeTable">
     <div class="trades-container">
         <div class="container">
             choose currency and enjoy the trading :)
@@ -11,12 +11,18 @@
 </div>
 
 {% else %}
-    <dev class="tradeTable">
+    <dev class="tradeTable" id="tradeTable">
         <div class="trades-container">
             <div class="container">
             <ul class="responsive-table">
                 <li class="table-header">  
-                    <h2>{{market}}</h2> <br>
+                    
+                        {% if market=="btc" %}
+                        <h2>Bitcoin</h2>
+                        {% elif market=="eth" %} 
+                        <h2>Etherium</h2>
+                        {% endif %} 
+                    <br>
                 </li>
                 <li class="table-header">
                     <div class="col">nobitex</div>
@@ -25,9 +31,9 @@
                 <li class="table-row">
                 <div class="col buy tooltip" data-label="nobitex">
                     <span id="nBuy" >
-                    {% if market=="Bitcoin" %}
+                    {% if market=="btc" %}
                         {{ Data[0]['NPriceB'] }}
-                    {% elif market=="Etherium" %} 
+                    {% elif market=="eth" %} 
                         {{ Data[1]['NPriceB'] }}
                     {% endif %}
                     </span>
@@ -36,9 +42,9 @@
                 
                 <div class="col sell tooltip"  data-label="wallex">
                     <span id="wSell">
-                    {% if market=="Bitcoin" %}
+                    {% if market=="btc" %}
                         {{ Data[0]['WPriceS'] }} 
-                    {% elif market=="Etherium" %} 
+                    {% elif market=="eth" %} 
                         {{ Data[1]['WPriceS'] }} 
                     {% endif %}
                     </span>
@@ -49,9 +55,9 @@
                 <li class="table-row">
                     <div class="col sell tooltip"  data-label="nobitex">
                         <span id="nSell">
-                        {% if market=="Bitcoin" %}
+                        {% if market=="btc" %}
                             {{ Data[0]['NPriceS'] }}
-                        {% elif market=="Etherium" %}
+                        {% elif market=="eth" %}
                             {{ Data[1]['NPriceS'] }} 
                         {% endif %}
                         </span>
@@ -60,10 +66,19 @@
 
                     <div class="col buy tooltip"  data-label="wallex">
                         <span id="wBuy">
-                        {% if market=="Bitcoin" %}
+                        {% if market=="btc" %}
+                        {% if Data[0]['WPriceB'] == 1 %}
+                           timeout : wallex
+                        {% else %}
                             {{ Data[0]['WPriceB'] }}
-                        {% elif market=="Etherium" %} 
+                        {% endif %}
+                        
+                        {% elif market=="eth" %} 
+                        {% if Data[0]['WPriceB'] == 1 %}
+                           timeout : wallex
+                        {% else %}
                             {{ Data[1]['WPriceB'] }}
+                        {% endif %}
                         {% endif %}
                         </span>
                         <span class="tooltiptext buy">purchase price</span>
@@ -78,53 +93,54 @@
         <div class="trades-container">
             <ul class="responsive-table">
                 <li class="table-header">
-                    {% if market=="Bitcoin" %}
+                    {% if market=="btc" %}
                         {% set p1 = ((Data[0]['WPriceS'] - Data[0]['NPriceB'])/Data[0]['NPriceB'])*100  %}
                         {% set p2 = ((Data[0]['NPriceS'] - Data[0]['WPriceB'])/Data[0]['WPriceB'])*100  %}
-                    {% elif market=="Etherium" %}
+                    {% elif market=="eth" %}
                         {% set p1 = ((Data[1]['WPriceS'] - Data[1]['NPriceB'])/Data[1]['NPriceB'])*100  %}
                         {% set p2 = ((Data[1]['NPriceS'] - Data[1]['WPriceB'])/Data[1]['WPriceB'])*100  %}
                     {% endif %}
                     <div class="result" style="width: 90%;">
                         <!-- {% print(p1 , p2) %} -->
-                    <div class='{{" action" if p1 >= 1.5 or p2 >= 1.5 else "middle"}}'>
+                    <div class='{{" action" if totalp >= 1 else "middle"}}'>
                         <audio src="{{url_for('static', filename='pristine-609.mp3')}}" allow="autoplay" id="audio" controls style="display:none;"></audio>
                         <!-- <button type="button" onclick="playaudio();">Play audio</button> -->
                         <p>
                             the maximum profit would be: 
                         </p>
                         <p id="profit" style="font-style:oblique; font-weight: 600;">
-                        {% if  p1>p2 %} 
-                            {{ '%0.2f'| format(p1|float) }} %
-                        {% else %}
-                            {{ '%0.2f'| format(p2|float) }} %
-                        {% endif %}  
+                            {{ '%0.2f'| format(totalp|float) }} %
+                        <!-- {% if  p1>p2 %}  -->
+                            <!-- {{ '%0.2f'| format(p1|float) }} % -->
+                        <!-- {% else %} -->
+                            <!-- {{ '%0.2f'| format(p2|float) }} % -->
+                        <!-- {% endif %}   -->
                             
                         </p>  
-                        <meta id="my-data" data-name="{{flag}}" >
+                        <meta id="my-data" data-flag="{{ flag }}">
                      </br> 
                         <p>
                         {% if  p1>p2 %}
                             <div >
                                 purchase from: 
-                                <a class="buy" href='{{"https://nobitex.ir/app/exchange/btc-rls/" if market=="Bitcoin" else "https://nobitex.ir/app/exchange/eth-rls/" }}'> nobitex </a> 
+                                <a class="buy" href='{{"https://nobitex.ir/app/exchange/btc-rls/" if market=="btc" else "https://nobitex.ir/app/exchange/eth-rls/" }}'> nobitex </a> 
                             </br>
                             </div>
                             <div >
                                 sell on:
-                                <a class="buy" href='{{"https://wallex.ir/markets/btc-tmn" if market=="Bitcoin" else "https://wallex.ir/markets/eth-tmn" }}'> wallex </a> 
+                                <a class="buy" href='{{"https://wallex.ir/markets/btc-tmn" if market=="btc" else "https://wallex.ir/markets/eth-tmn" }}'> wallex </a> 
                             </br>
                             </div>
                         {% else %}
                             <div >
                                 purchase from: 
-                                <a class="buy" href='{{"https://wallex.ir/markets/btc-tmn" if market=="Bitcoin" else "https://wallex.ir/markets/eth-tmn" }}'> wallex </a> 
+                                <a class="buy" href='{{"https://wallex.ir/markets/btc-tmn" if market=="btc" else "https://wallex.ir/markets/eth-tmn" }}'> wallex </a> 
                                 
                             </br>
                             </div>
                             <div >
                                 sell on:
-                                <a class="buy" href='{{"https://nobitex.ir/app/exchange/btc-rls/" if market=="Bitcoin" else "https://nobitex.ir/app/exchange/eth-rls/" }}'> nobitex </a> 
+                                <a class="buy" href='{{"https://nobitex.ir/app/exchange/btc-rls/" if market=="btc" else "https://nobitex.ir/app/exchange/eth-rls/" }}'> nobitex </a> 
                                 </br>
                             </div>
                         {% endif %}
@@ -156,31 +172,27 @@
     $('#wSell').text(numberWithCommas(parseInt($('#wSell').text())));
 </script>
 <script>
-    var sound1 = new Audio('../static/pristine-609.mp3'); 
+    var sound1 = new Audio('/static/pristine-609.mp3'); 
     // var val = parseInt($('#profit').text().split('%')[0])
     var val = parseFloat(document.getElementById('profit').innerHTML.replace (/,/g, ""));
-    // console.log(val)
-    // console.log(typeof(val))
-    // var val = {{totalp}}
-    if (val>1.5){
-        playaudio();
-    }
 
     var check = $('#my-data').data();
-    // console.log(check)
-    // if(check.name=='True'){
-        // playaudio();
-    // }
-
+    console.log(check.flag)
+    console.log(val)
     function playaudio(){
         document.getElementById("audio").play();
+    }
+
+    if(check.flag=='True'){
+    // if (val > 1){   
+        playaudio();
     }
     
 </script>
 <script type="text/javascript">
     $ = jQuery;
     var timer = function() {
-    setTimeout(function(){ window.location.reload(); }, 10000);
+    setTimeout(function(){ window.location.reload(); }, 60000);
     };
     timer();  
 </script>

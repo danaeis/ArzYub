@@ -7,10 +7,12 @@
 }
 
 body {
-  background: linear-gradient(rgb(20, 20, 20, 0.5), rgba(20, 20, 20, 0.7)),
-    url(Background.jpg);
+  background: linear-gradient(rgb(20, 20, 20, 0.2), rgba(20, 20, 20, 0.4)),
+    url(/arzyab/static/Background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  width: 100%;
+  height: auto;
 }
 
 body,
@@ -40,8 +42,8 @@ main {
   width: 90%;
   background: linear-gradient(
     to right bottom,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.3)
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.4)
   );
   backdrop-filter: blur(1rem);
   border-radius: 20px;

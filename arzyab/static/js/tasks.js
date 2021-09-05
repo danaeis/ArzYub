@@ -13,8 +13,6 @@ const closeMenu = () => {
   document.getElementById("menu").style.removeProperty("display");
   document.getElementById("openMenuBtn").style.removeProperty("display");
 
-  document.getElementById("tradeTable").style.gridTemplateColumns =
-    "repeat(2, minmax(0, 1fr))";
 };
 
 const changeTab = (e) => {

@@ -7,7 +7,7 @@
 }
 
 body {
-  background: linear-gradient(rgb(20, 20, 20, 0.5), rgba(20, 20, 20, 0.7)),
+  background: linear-gradient(rgba(151, 96, 96, 0.1), rgba(20, 20, 20, 0.2)),
     url(Background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -40,8 +40,8 @@ main {
   width: 90%;
   background: linear-gradient(
     to right bottom,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.3)
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.01)
   );
   backdrop-filter: blur(1rem);
   border-radius: 20px;
@@ -51,6 +51,7 @@ main {
 /* ---------------------------------------------- Menu ---------------------------------------------- */
 
 .open-menu-btn {
+  align-self: flex-start;
   padding: 2em 0 0 2em;
   border: none;
   background: transparent;
@@ -73,8 +74,8 @@ main {
   padding: 2em;
   background: linear-gradient(
     to right bottom,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.302)
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.3)
   );
   border-radius: 20px 0 0 20px;
 }
@@ -197,14 +198,14 @@ main {
   text-decoration: none;
 }
 
-.new-project-btn {
+.price_records_btn {
   padding: 1em;
   border-radius: 50px;
   border: none;
   cursor: pointer;
 }
 
-.new-project-btn:is(:hover, :active) {
+.price_records_btn:is(:hover, :active) {
   color: #a59180;
 }
 
@@ -263,8 +264,8 @@ main {
     
     background: linear-gradient(
       to bottom right,
-      rgba(100, 88, 116, 0.2),
-      rgba(109, 109, 109, 0.5)
+      rgba(146, 136, 160, 0.6),
+      rgba(109, 109, 109, 0.8)
     );
 }
 .result {
@@ -289,8 +290,8 @@ main {
   width: 100%;
   background: linear-gradient(
     to bottom right,
-    rgba(100, 88, 116, 0.2),
-    rgba(124, 155, 139, 0.5)
+    rgba(112, 153, 132, 0.2),
+    rgba(112, 153, 132, 0.8)
   ) !important;
 }
 .action {
@@ -299,8 +300,8 @@ main {
   /* background-color: rgba(216, 58, 58, 0.479); */
   background: linear-gradient(
     to bottom right,
-    rgba(100, 88, 116, 0.2),
-    rgba(216, 58, 58, 0.479)
+    rgba(216, 58, 58, 0.4),
+    rgba(216, 58, 58, 0.7)
     ) !important;
 }
 
@@ -453,3 +454,85 @@ a:hover{
   visibility: visible;
   opacity: 1;
 }
+
+
+/* Default table styles for this demo */
+table {
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%;
+}
+table tr {
+  background: rgba(255, 255, 255, 0.61);
+  border-bottom: 1px solid
+}
+table th, table td {
+  padding: 10px 20px;
+  text-align: left;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+  }
+/* Simple CSS for scrollable table on mobile */
+table {
+  min-width: 800px;
+}
+
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.nowrap ::-webkit-scrollbar {
+  width: 3px;
+  margin-left: 1em;
+}
+
+.nowrap ::-webkit-scrollbar-thumb {
+  background: rgba(243, 240, 240, 0.548);
+}
+
+.nowrap ::-webkit-scrollbar-thumb:hover {
+  background: rgb(34, 34, 34);
+}
+
+.form-control{
+  background: linear-gradient(
+  to right bottom,
+  rgba(255, 255, 255, 0.6),
+  rgba(255, 255, 255, 0.8)
+);
+}
+
+.flex-container {
+  display: flex;
+  
+}
+
+.flex-child {
+  flex: 1;
+}  
+.flex-child:first-child {
+  margin-right: 20px;
+} 

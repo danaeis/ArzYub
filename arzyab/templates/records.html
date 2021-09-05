@@ -1,0 +1,312 @@
+{% extends "layout.html" %}
+{% block imports %}
+<script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/jquery.dataTables_themeroller.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/jquery.dataTables.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_table_jui.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_table.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_page.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+{% endblock %}
+{% block content %}
+<div>
+    <ul class="responsive-table">
+        <li class="table-header"> 
+        <h2>Logs:</h2>
+    </li>
+    </ul>
+    </div>
+    <div>
+
+    <form action="" method="POST" class="flex-container" >
+            {{ form.hidden_tag() }}
+        <div class="flex-child">
+
+            {{ form.search.label(class="form-control-label", id="myInput")}}
+            {% if form.search.errors %}
+                {{ form.search(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.search.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.search(class="form-control form-control-lg") }}
+            {% endif %}
+            <p id="date_filter" >
+                {{ form.fromdate.label(class="form-control-label", id="myInput")}}
+                {% if form.fromdate.errors %}
+                    {{ form.fromdate(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.fromdate.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.fromdate(class="form-control form-control-lg") }}
+                {% endif %}
+                {{ form.todate.label(class="form-control-label", id="myInput")}}
+                {% if form.todate.errors %}
+                    {{ form.todate(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.todate.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.todate(class="form-control form-control-lg") }}
+                {% endif %}
+            </p>
+
+        </div>
+
+        <div  class="projects flex-child" style="width:max-content !important;">
+            {{ form.submit(style="width: 20%; border: none; color: rgb(39, 82, 82);  font-size:medium;", class="proj", id="filtered") }}
+            <button onclick="exportData()" style=" width: 20%; border: none; color: rgb(73, 97, 26); font-size: medium;" class="proj">
+                <span class="glyphicon glyphicon-download "></span>
+                Download csv </button>
+        </div>
+    </form>
+
+    </div>
+<div style="align-items: center; margin: auto; padding-bottom: 1em;">
+    {% for page_num in nob.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+        {% if nob.page == page_num %}
+        <a class="btn mb-4" style="background-color:rgba(215, 250, 218, 0.342); color:rgb(33, 56, 30);" onclick="pageClick()" href="{{ url_for('market.price_records', page=page_num, form=form) }}">{{ page_num }}</a>
+        {% else %}
+        <a class="btn btn-outline mb-4" style="color:rgb(33, 65, 29);" href="{{ url_for('market.price_records', page=page_num, form=form) }}">{{ page_num }}</a>
+        {% endif %}
+    {% else %}
+        ...
+    {% endif %}
+    {% endfor %}
+</div>
+<div >
+<table id="datatableheader" >
+    <thead>
+        
+        <tr>
+            <TH colspan="5">Date </TH>
+            <TH>Time</TH>
+            <TH>profit</TH>
+            <TH>Currency</TH>
+            <TH>Nobitex Purchase amount</TH>
+            <TH>Nobitex Purchase price</TH>
+            <TH>Nobitex Sell amount</TH>
+            <TH>Nobitex Sell price</TH>
+            <TH>Wallex Purchase amount</TH>
+            <TH>Wallex Purchase price</TH>
+            <TH>Wallex Sell amount</TH>
+            <TH>Wallex Sell price</TH>
+        </tr>
+    </thead>
+</table>
+</div>
+<div style="height: 100%; width: 100%; overflow:scroll;" >
+<table id="datatable" >
+    <thead>
+    </thead>
+    <tbody>
+        <tr>
+            
+            {% for n in nob.items %}
+                {% for w in wal.items %}
+                    {% if n.date_created.strftime('%Y/%B/%d') == w.date_created.strftime('%Y/%B/%d') and n.date_created.strftime('%H:%M:%S') == w.date_created.strftime('%H:%M:%S')%}
+                        <TR ALIGN="CENTER">
+                            <td id="date">{{w.date_created.strftime('%Y/%m/%d')}}</td>
+                            <td>{{w.date_created.strftime('%H:%M:%S')}}</td>
+                            {% set profit1 = ((w.Sprice - n.Pprice)/n.Pprice)*100 %}
+                            {% set profit2 = ((n.Sprice - w.Pprice)/w.Pprice)*100 %}
+                            {% if  profit1 > profit2 %}
+                                <td>
+                                    {{ '%0.2f'| format(profit1|float) }}%
+                                </td>
+                            {% else %}
+                                <td>
+                                    {{ '%0.2f'| format(profit2|float) }}%
+                                </td>
+                            {% endif %}
+                            <td>{{ w.curr }}</td>
+                            <td>{{ n.Pamount }}</td>
+                            <td class="nP">{{ n.Pprice }}</td>
+                            <td>{{ n.Samount }}</td>
+                            <td class="nS">{{ n.Sprice }}</td>
+                            <td>{{ w.Pamount }}</td>
+                            <td class="wP">{{ w.Pprice }}</td>
+                            <td>{{ w.Samount }}</td>
+                            <td class="wS">{{ w.Sprice }}</td>
+                        </TR>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            
+        </tr>
+    </tbody>
+</table>
+
+</div>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    var arr = $('.nP')
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].innerHTML = numberWithCommas(parseInt(arr[i].innerHTML))
+    }
+    var arr = $('.nS')
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].innerHTML = numberWithCommas(parseInt(arr[i].innerHTML))
+    }
+    var arr = $('.wP')
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].innerHTML = numberWithCommas(parseInt(arr[i].innerHTML))
+    }
+    var arr = $('.wS')
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].innerHTML = numberWithCommas(parseInt(arr[i].innerHTML))
+    }
+</script>
+<script> 
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#datatable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+function pageClick(){
+    document.getElementById('filtered').click()
+}
+
+function search(){
+    // console.log("date filter")
+    var startDateArr = [];
+    var endDateArr = [];
+    var myTab = document.getElementById('datatable');
+    let InputStartDate = document.getElementById('datepicker_from').value;
+    let InputEndDate = document.getElementById('datepicker_to').value;
+    // console.log(InputEndDate)
+
+    // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
+    for(i = 1; i < myTab.rows.length; i++) {
+        // GET THE CELLS COLLECTION OF THE CURRENT ROW.
+        var objCells = myTab.rows.item(i).cells;
+        var t1 = new Date(objCells.item(0).innerHTML)
+        // console.log(t1, "###", objCells.item(0).innerHTML)
+        startDateArr.push(t1);
+        // var t2 = new Date(objCells.item(0).innerHTML)
+        // endDateArr.push(t2);
+    }
+    var startDate = new Date(InputStartDate);
+    var endDate = new Date(InputEndDate);
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
+    // console.log(startDate, "%%%%%%%%%%", endDate)
+    let myTable = document.getElementById('datatable');
+    let tr = myTable.getElementsByTagName('tr');
+    if(+startDate > +endDate) {
+        alert("Select Valid Date. Now please Refresh this page to continue to run code.");
+    } else {
+        for(var j = 0; j < startDateArr.length; j++) {
+            var temp1 = new Date(startDateArr[j]);
+            if(startDate && !InputEndDate) {
+                // console.log("only start date")
+                if(+startDate <= +temp1 || +startDate === +temp1) {
+                    tr[j + 1].style.display = "";
+                } else {
+                    tr[j + 1].style.display = "none";
+                }
+            } else if(!InputStartDate && endDate) {
+                // console.log("only end date")
+                if(+endDate >= +temp1 || +endDate === +temp1) {
+                    tr[j + 1].style.display = "";
+                } else {
+                    tr[j + 1].style.display = "none";
+                }
+            } else if(startDate && endDate) {
+                // console.log("both date")
+                if((+startDate <= +temp1 || +startDate === +temp1) && (+endDate >= +temp1 || +endDate === +temp1)) {
+                    tr[j + 1].style.display = "";
+                } else {
+                    tr[j + 1].style.display = "none";
+                }
+            }
+        }
+    }
+}
+
+
+</script>
+
+<script>
+    function strWithoutCommas(x) {
+        return x.replace(/,/g, "");
+    }
+
+
+    function exportData(){
+    /* Get the HTML data using Element by Id */
+    var table = document.getElementById("datatableheader");
+ 
+    /* Declaring array variable */
+    column=[];
+    for(var j=0;j<table.rows[0].cells.length;j++){
+        // if (table.rows[0].cells[j].is(':visible'))
+        // console.log(table.rows[0].cells[j].is(':visible'))
+        column.push(table.rows[0].cells[j].innerText);
+    }
+    var rows =[];
+    rows.push(
+        [column]
+    );
+    console.log(column)
+    console.log(rows)
+    table = document.getElementById("datatable");
+    //   iterate through rows of table
+    for(var i=1; i<table.rows.length; i++){
+        // rows would be accessed using the "row" variable assigned in the for loop
+        // Get each cell value/column from the row
+        
+        column=[];
+        for(var j=0;j<table.rows[i].cells.length;j++){
+    
+            column.push(strWithoutCommas(table.rows[i].cells[j].innerText));
+    
+        }
+    /* add a new records in the array */
+        
+        if(!(window.getComputedStyle(table.rows[i]).display === "none")){
+            rows.push(
+            [column]
+            );
+        }
+    
+        
+    }
+        csvContent = "data:text/csv;charset=utf-8,";
+        //  /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+        rows.forEach(function(rowArray){
+            row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });  
+        // /* create a hidden <a> DOM node and set its download attribute */
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Stock_Price_Report.csv");
+        document.body.appendChild(link);
+        //  /* download the data file named "Stock_Price_Report.csv" */
+        link.click();
+}
+</script>
+{% endblock script %}

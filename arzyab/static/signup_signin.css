@@ -1,3 +1,12 @@
+body {
+  background: linear-gradient(rgb(20, 20, 20, 0.2), rgba(20, 20, 20, 0.4)),
+    url(./Background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: auto;
+}
+
 #container {
   display: flex;
   flex-direction: column;

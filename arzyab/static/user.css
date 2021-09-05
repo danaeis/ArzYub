@@ -1,132 +1,6 @@
 #container {
   display: flex;
 }
-
-/* ---------------------------------------------- Menu ---------------------------------------------- */
-
-.open-menu-btn {
-  align-self: flex-start;
-  padding: 2em 0 0 2em;
-  border: none;
-  background: transparent;
-  font-size: 1.2em;
-  cursor: pointer;
-}
-
-.open-menu-btn:hover {
-  color: #a59180;
-}
-
-.menu {
-  /* position: fixed; */
-  z-index: 10;
-  display: none;
-  flex: 1;
-  /* order: 1; */
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2em;
-  background: linear-gradient(
-    to right bottom,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.302)
-  );
-  border-radius: 20px 0 0 20px;
-}
-
-.user {
-  width: 100%;
-  align-self: flex-start;
-  height: min-content;
-  display: flex;
-  align-items: center;
-  padding: 0.5em 1em;
-  border-radius: 50px;
-}
-
-.profile-img {
-  width: 50px;
-  border-radius: 50%;
-}
-
-.profile-img:hover {
-  opacity: 0.8;
-}
-
-.user-info {
-  margin: 0 1em;
-  line-height: 1.4;
-}
-
-.user-info p {
-  color: #6b6661;
-}
-
-.user-info h3 {
-  color: #0c0000;
-  font-weight: 600;
-}
-
-.logout {
-  align-self: flex-end;
-  color: black;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.logout:hover {
-  color: #6b6661;
-}
-
-.projects {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  width: 90%;
-  margin: 3em 0;
-  overflow-y: hidden;
-}
-
-.title {
-  width: 70%;
-  margin-bottom: 1em;
-  padding-bottom: 0.2em;
-  border-bottom: 2px black solid;
-  align-self: flex-start;
-  justify-self: flex-start;
-}
-
-.projects-nav {
-  height: 100%;
-  padding-right: 1em;
-  overflow-y: auto;
-}
-
-.projects .proj {
-  display: inline-block;
-  width: 90%;
-  display: flex;
-  justify-content: center;
-  padding: 1em 0;
-  margin-bottom: 0.5em;
-  background: #a1938549;
-  border-radius: 15px;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
-}
-
-.proj-delete-btn {
-  display: inline;
-  padding: 0;
-  margin: 0;
-  background: transparent;
-}
-
-.projects .proj:hover {
-  background: rgba(182, 174, 165, 0.63);
-}
 /* ---------------------------------------------- USer ---------------------------------------------- */
 
 .profile {
@@ -232,16 +106,16 @@
   #container {
     display: flex;
   }
-  .menu {
-    display: flex;
-  }
-  .open-menu-btn {
-    display: none;
-  }
+  
+  
+  
+  
+  
+  
 
-  #closeMenuBtn {
-    display: none;
-  }
+  
+  
+  
 }
 
 @media screen and (min-width: 1600px) {
@@ -251,7 +125,15 @@
    
   }
   
-
+  .menu {
+    display: flex;
+  }
+  .open-menu-btn {
+    display: none;
+  }
+  #closeMenuBtn {
+    display: none;
+  }
   
 }
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +12,9 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    {% block imports %}{% endblock %}
+
     <link rel="stylesheet" href="{{url_for('static', filename='All_pages.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='trade.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='user.css')}}" />
@@ -24,11 +28,11 @@
     <main>
       <section id="container">
         <section id="menu" class="menu">
-          <button id="closeMenuBtn" class="close-btn">
+          <button id="closeMenuBtn" class="closeMenuBtn">
             <i class="fas fa-times"></i>
           </button>
           <div class="user">
-            <a href="{{url_for('account')}}">
+            <a href="{{url_for('users.account')}}">
               <img
               src={{image_file}}
               alt="Profile"
@@ -37,8 +41,8 @@
             </a>
             <div class="user-info">
               <p>Welcome</p>
-              <a href="{{url_for('account')}}"><h3>{{current_user.username}}</h3></a>
-              <a href="{{url_for('logout')}}" class="logout">Logout</a>
+              <a href="{{url_for('users.account')}}"><h3>{{current_user.username}}</h3></a>
+              <a href="{{url_for('users.logout')}}" class="logout">Logout</a>
             </div>
           </div>
           <div class="projects">
@@ -49,24 +53,25 @@
             
             <nav id="projectsNav" class="projects-nav">
               
-                <a href="{{url_for('market_type', market='btc')}}" class='{{"proj selected" if market and market=="Bitcoin" else "proj"}}' >
+                <a href="{{url_for('market.market_type', market='btc')}}" class='{{"proj selected" if market and market=="btc" else "proj"}}' >
                     Bitcoin
                </a>
-               <a href="{{url_for('market_type', market='eth')}}" class='{{"proj selected" if market and market=="Etherium" else "proj"}}' >
+               <a href="{{url_for('market.market_type', market='eth')}}" class='{{"proj selected" if market and market=="eth" else "proj"}}' >
                    Etherium
               </a>
 
             </nav>
           </div>
-          <!-- <section class="date">
-            <a href="#" class="new-project-btn"><button class="new-project-btn"  >
-              <i class="fas fa-plus"></i>
+          <section class="date">
+            <a href="{{url_for('market.price_records')}}" class="price_records_btn"><button class="price_records_btn"  >
+              <i class="fas fa-history"></i>
             </button></a>
-          </section> -->
+          </section>
         </section>
 
         <button id="openMenuBtn" class="open-menu-btn">
-          <i class="fas fa-angle-double-right"></i>
+          <i class="fas fa-bars"></i>
+          <!-- <i class="fas fa-angle-double-right"></i> -->
         </button>
 
         <!-- Tasks -->
